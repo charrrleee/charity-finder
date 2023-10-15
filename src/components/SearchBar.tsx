@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const SearchBar: React.FC<{ onSearch: (searchTerm: string) => void }> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [causeList, setCauseList] = useState<string[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('/CauseList.json')
@@ -23,6 +26,12 @@ const SearchBar: React.FC<{ onSearch: (searchTerm: string) => void }> = ({ onSea
     setSearchTerm(suggestion);
     onSearch(suggestion);
     setSuggestions([]); // Clear suggestions after click
+    if (location.pathname.includes("/charity/")) {
+      navigate('/');
+    }
+
+
+    console.log('Current path:', location.pathname);
   }
 
   return (
@@ -39,7 +48,7 @@ const SearchBar: React.FC<{ onSearch: (searchTerm: string) => void }> = ({ onSea
           {suggestions.map(suggestion => (
             <button
               key={suggestion}
-              className="w-full px-4 py-2 text-left hover:bg-blue-100 text-black"
+              className="w-full px-4 py-2 text-left hover:bg-blue-100 text-white"
               onClick={() => handleSuggestionClick(suggestion)}
             >
               {suggestion}

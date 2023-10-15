@@ -23,11 +23,13 @@ const CharityList: React.FC = () => {
         <div className="flex justify-center">
             <div className="grid grid-cols-3 gap-4 p-4 max-w-screen-lg w-full">
                 {charities.map((charity) => (
-                    <div key={charity.ein} className="border p-4 rounded-lg">
-                        <img src={charity.logoUrl} alt={`${charity.name} Logo`} className="mx-auto mb-4" />
-                        <h1 className="text-xl font-bold mb-2">{charity.name}</h1>
-                        <p className="text-sm">Location: {charity.location}</p>
-                        <Link to={`/charity/${charity.ein}`} className="block mt-4 text-blue-500">Learn More</Link>
+                    <div key={charity.ein} className="border p-4 rounded-lg flex">
+                        <img src={charity.logoUrl} alt={`${charity.name} Logo`} className="mx-auto mb-4 flex-shrink-0 w-64" />
+                        <div className='flex-shrink-0 ml-2'>
+                            <h1 className="text-xl font-bold mb-2">{charity.name}</h1>
+                            <p className="text-sm">Location: {charity.location}</p>
+                            <Link to={`/charity/${charity.ein}`} className="block mt-4 text-blue-500">Learn More</Link>
+                        </div>
                     </div>
                 ))}
             </div>
