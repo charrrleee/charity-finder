@@ -4,7 +4,7 @@ import Charity from '../types/Charity.types';
 import axios from 'axios';
 
 const CharityList: React.FC = () => {
-    const [keyword, _] = useOutletContext();
+    const [keyword, _] = useOutletContext<string>();
     const [charities, setCharities] = useState<Charity[]>([]);
 
     const fetchCharitiesByKeyword = (keyword: string) => {
@@ -12,7 +12,7 @@ const CharityList: React.FC = () => {
         const url = `https://partners.every.org/v0.2/browse/${term}?apiKey=${import.meta.env.VITE_API_KEY}`;
         axios.get(url)
         .then((resp) => resp.data.nonprofits)
-        .then((resp) => resp.filter((obj) => obj.ein !== undefined))
+        .then((resp) => resp.filter((obj: Charity) => obj.ein !== undefined))
         .then((resp: Charity[]) => setCharities(resp))
         .catch((e) => console.log(e));
     }
